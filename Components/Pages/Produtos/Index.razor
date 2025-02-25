@@ -1,0 +1,67 @@
+@page "/produtos"
+@inject ApplicationDbContext DbContext
+@inject NavigationManager NavigationManager
+@using ProdutosCrud.Data
+@using ProdutosCrud.Models
+@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+ 
+<h3>Lista de Produtos</h3>
+ 
+<a href="/produtos/criar" class="btn btn-primary mb-3">Novo Produto</a>
+ 
+@if (produtos is null)
+{
+    <p>Carregando...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var produto in produtos)
+            {
+                <tr>
+                    <td>@produto.Nome</td>
+                    <td>@produto.Descricao</td>
+                    <td>@produto.Preco.ToString("C")</td>
+                    <td>@produto.Quantidade</td>
+                    <td>
+                        <a href="/produtos/editar/@produto.Id" class="btn btn-warning btn-sm">Editar</a>
+<button class="btn btn-danger btn-sm" @onclick="() => ExcluirProduto(produto.Id)">Excluir</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+ 
+@code {
+    private List<Produto>? produtos;
+ 
+    protected override async Task OnInitializedAsync()
+    {
+        produtos = await DbContext.Produtos
+            .OrderBy(p => p.Nome)
+            .ToListAsync();
+    }
+    
+    private async Task ExcluirProduto(int id)
+    {
+        var produto = await DbContext.Produtos.FindAsync(id);
+        if (produto != null)
+        {
+            DbContext.Produtos.Remove(produto);
+            await DbContext.SaveChangesAsync();
+            produtos = await DbContext.Produtos.ToListAsync();
+        }
+    }
+}

@@ -1,0 +1,89 @@
+@page "/produtos/criar"
+@using Microsoft.EntityFrameworkCore
+@using ProdutosCrud.Data
+@using ProdutosCrud.Models
+@inject ApplicationDbContext DbContext
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+
+<h3>Novo Produto</h3>
+
+@if (!string.IsNullOrEmpty(mensagemErro))
+{
+    <div class="alert alert-danger">
+        @mensagemErro
+    </div>
+}
+
+<EditForm method="post" Model="@produto" OnValidSubmit="SalvarProduto" FormName="createForm">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Nome:</label>
+        <InputText id="nome" @bind-Value="produto.Nome" class="form-control" />
+        @* <ValidationMessage For="@(() => nomeDoProduto)" /> *@
+    </div>
+
+    <div class="form-group">
+        <label>Descrição:</label>
+        <InputText id="descricao" @bind-Value="produto.Descricao" class="form-control"/>
+        @* <ValidationMessage For="@(() => descricaoDoProduto)" /> *@
+    </div>
+
+    <div class="form-group">
+        <label>Preço:</label>
+        <InputNumber id="preco" @bind-Value="produto.Preco" class="form-control" />
+        @* <ValidationMessage For="@(() => produto.Preco)" /> *@
+    </div>
+
+    <div class="form-group">
+        <label>Quantidade:</label>
+        <InputNumber id="quantidade" @bind-Value="produto.Quantidade" class="form-control" />
+        @* <ValidationMessage For="@(() => produto.Quantidade)" /> *@
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+    <a href="/produtos" class="btn btn-secondary mt-3">Voltar</a>
+</EditForm>
+
+@code {
+    private Produto produto = new();
+    private string? mensagemErro;
+
+    protected override void OnInitialized()
+    {
+        // Inicializa um novo produto a cada carregamento
+        ResetForm();
+    }
+
+    private void ResetForm()
+    {
+        produto = new Produto ();
+        mensagemErro = null;
+    }
+    
+    private void SalvarProduto()
+    {
+        try 
+        {
+            // Salvar de forma síncrona
+            DbContext.Produtos.Add(produto);
+            DbContext.SaveChanges(); // Chamada síncrona
+
+            NavigationManager.NavigateTo("/produtos");
+        }
+        catch (DbUpdateException dbEx)
+        {
+            mensagemErro = $"Erro de banco de dados: {dbEx.InnerException?.Message ?? dbEx.Message}";
+            Console.Error.WriteLine($"Erro ao salvar produto: {dbEx}");
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            mensagemErro = $"Erro ao salvar: {ex.Message}";
+            Console.Error.WriteLine($"Erro ao salvar produto: {ex}");
+            StateHasChanged();
+        }
+    }
+}

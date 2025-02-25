@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\melsantos\\ProductCRUD\\ProdutosCrud\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProdutosCrud.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ProdutosCrud.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\melsantos\\ProductCRUD\\ProdutosCrud\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\melsantos\\ProductCRUD\\ProdutosCrud\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\melsantos\\ProductCRUD\\ProdutosCrud\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\melsantos\\ProductCRUD\\ProdutosCrud\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ProdutosCrud.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ProdutosCrud.props",
+      "PackagePath": "build\\ProdutosCrud.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ProdutosCrud.props",
+      "PackagePath": "buildMultiTargeting\\ProdutosCrud.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ProdutosCrud.props",
+      "PackagePath": "buildTransitive\\ProdutosCrud.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
